@@ -1,3 +1,4 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
   package="ch.upte.modular_location_permission">
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 </manifest>

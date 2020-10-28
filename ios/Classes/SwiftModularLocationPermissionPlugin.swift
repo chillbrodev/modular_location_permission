@@ -48,9 +48,11 @@ public class SwiftModularLocationPermissionPlugin: NSObject, FlutterPlugin, CLLo
     }
 
     if call.method == "openAppSettings" {
-        guard let url = URL(string: "UIApplication.openSettingsURLString") else {return}
+        guard let url = URL(string: UIApplication.openSettingsURLString) else {return}
         if #available(iOS 10.0, *) {
-          UIApplication.shared.open(url, options: [:], completionHandler: nil)
+          UIApplication.shared.open(url, options: [:], completionHandler: { success in
+              log.debug("Open app settings success: \(success)")
+          })
         } else {
           // Fallback on earlier versions
           UIApplication.shared.openURL(url)

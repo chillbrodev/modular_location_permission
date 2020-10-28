@@ -1,8 +1,8 @@
 name: modular_location_permission
-description: A new flutter plugin project.
-version: 0.0.1
-author:
-homepage:
+description: Location permission plugin to be used with Modular Permissions.
+version: 0.1.0
+author: UpTech
+homepage: https://upte.ch
 
 environment:
   sdk: ">=2.7.0 <3.0.0"

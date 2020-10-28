@@ -1,15 +1,10 @@
 # modular_location_permission
 
-A new flutter plugin project.
+Location permission plugin to be used with the [Modular App Permissions plugin](https://github.com/uptech/modular_app_permissions).
 
-## Getting Started
+## Information
 
-This project is a starting point for a Flutter
-[plug-in package](https://flutter.dev/developing-packages/),
-a specialized package that includes platform-specific implementation code for
-Android and/or iOS.
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+This plugin is not intended to be used on its own. It is designed to be used in the [Modular App Permissions
+plugin](https://github.com/uptech/modular_app_permissions). Using this plugin by itself will work
+but the developer is responsible for building the Dart interface.  
 

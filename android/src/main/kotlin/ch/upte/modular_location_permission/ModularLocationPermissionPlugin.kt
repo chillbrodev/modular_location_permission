@@ -17,6 +17,9 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.IntArray
 import kotlin.String
+import android.util.Log
+import io.flutter.plugin.common.PluginRegistry
+
 class ModularLocationPermissionPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
         RequestPermissionsResultListener {
   private var channel: MethodChannel? = null
@@ -68,6 +71,7 @@ class ModularLocationPermissionPlugin : FlutterPlugin, MethodCallHandler, Activi
   }
   override fun onAttachedToActivity(binding: ActivityPluginBinding) {
     activity = binding.activity
+    binding.addRequestPermissionsResultListener(this)
   }
   override fun onDetachedFromActivityForConfigChanges() {
     activity = null
@@ -115,6 +119,7 @@ class ModularLocationPermissionPlugin : FlutterPlugin, MethodCallHandler, Activi
     fun isLocationPermission(permission: String) =
             permission == "android.permission.ACCESS_COARSE_LOCATION" ||
                     permission == "android.permission.ACCESS_FINE_LOCATION"
+
     for (i in permissions.indices) {
       if (isLocationPermission(permissions[i])) {
         if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {

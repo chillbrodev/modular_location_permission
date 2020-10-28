@@ -48,16 +48,20 @@ public class SwiftModularLocationPermissionPlugin: NSObject, FlutterPlugin, CLLo
     }
 
     if call.method == "openAppSettings" {
-        guard let url = URL(string: UIApplication.openSettingsURLString) else {return}
-        if #available(iOS 10.0, *) {
-          UIApplication.shared.open(url, options: [:], completionHandler: { success in
-              log.debug("Open app settings success: \(success)")
-          })
-        } else {
-          // Fallback on earlier versions
-          UIApplication.shared.openURL(url)
-        }
-    }
+             guard let url = URL(string: UIApplication.openSettingsURLString) else {
+                   print("Invalid APP URL")
+                   return
+             }
+             print(url)
+             if #available(iOS 10.0, *) {
+               UIApplication.shared.open(url, options: [:], completionHandler: { success in
+                   print("Open app settings success: \(success)")
+               })
+             } else {
+               // Fallback on earlier versions
+               UIApplication.shared.openURL(url)
+             }
+         }
   }
 
   public func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {

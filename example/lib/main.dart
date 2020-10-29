@@ -1,56 +1,98 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
-
 import 'package:flutter/services.dart';
-import 'package:modular_location_permission/modular_location_permission.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(DemoApp());
 }
 
-class MyApp extends StatefulWidget {
+class DemoApp extends StatefulWidget {
   @override
-  _MyAppState createState() => _MyAppState();
+  _DemoAppState createState() => _DemoAppState();
 }
 
-class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
-
-  @override
-  void initState() {
-    super.initState();
-    initPlatformState();
-  }
-
-  // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initPlatformState() async {
-    String platformVersion;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    try {
-      platformVersion = await ModularLocationPermission.platformVersion;
-    } on PlatformException {
-      platformVersion = 'Failed to get platform version.';
-    }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
-
-    setState(() {
-      _platformVersion = platformVersion;
-    });
-  }
+class _DemoAppState extends State<DemoApp> {
+  bool _granted = false;
+  MethodChannel _channelLocation =
+      MethodChannel('ch.upte.modularLocationPermissions');
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Plugin example app'),
+          title: Text('Modular Location Permission'),
         ),
         body: Center(
-          child: Text('Running on: $_platformVersion\n'),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              OutlineButton(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(4.0)),
+                borderSide: BorderSide(color: Colors.red),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'Check Location Permission',
+                    style: Theme.of(context).textTheme.button,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                onPressed: () async {
+                  final String info = await _channelLocation.invokeMethod(
+                      'checkLocationPermission',
+                      {'permissionArgs': 'LocationWhenInUse'});
+                  setState(() {
+                    _granted = info == "granted";
+                  });
+                },
+              ),
+              OutlineButton(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(4.0)),
+                borderSide: BorderSide(color: Colors.red),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'Request Location Permission',
+                    style: Theme.of(context).textTheme.button,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                onPressed: () async {
+                  final String info = await _channelLocation.invokeMethod(
+                      'requestLocationPermission',
+                      {'permissionArgs': 'LocationWhenInUse'});
+                  setState(() {
+                    _granted = info == "granted";
+                  });
+                },
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'Location Permission is ${_granted ? 'granted' : 'not granted'}',
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              OutlineButton(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(4.0)),
+                borderSide: BorderSide(color: Colors.red),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'Open App Settings',
+                    style: Theme.of(context).textTheme.button,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                onPressed: () async {
+                  await _channelLocation.invokeMethod('openAppSettings');
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

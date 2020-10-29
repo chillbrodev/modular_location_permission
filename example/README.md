@@ -1,16 +1,18 @@
-# modular_location_permission_example
+# modular_location_permission
 
-Demonstrates how to use the modular_location_permission plugin.
+Location permission plugin to be used with the [Modular App Permissions plugin](https://github.com/uptech/modular_app_permissions).
 
-## Getting Started
+## Plugin Information
 
-This project is a starting point for a Flutter application.
+This plugin is not intended to be used on its own. It is designed to be used in the [Modular App Permissions
+plugin](https://github.com/uptech/modular_app_permissions). Using this plugin by itself will work
+but the developer is responsible for building the Dart interface.  
 
-A few resources to get you started if this is your first Flutter project:
+## Permission Definition
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+*Android*: This plugin automatically includes the ` <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>`.
+*iOS*: You _MUST_ include the proper NSUSAGE key in your `info.plist`. Failure to do so will result in 
+improper use of this library. 
+- [NSLocationAlwaysUsageDescription](https://developer.apple.com/documentation/bundleresources/information_property_list/nslocationalwaysusagedescription)
+- [NSLocationWhenInUseUsageDescription](https://developer.apple.com/documentation/bundleresources/information_property_list/nslocationwheninuseusagedescription)
+- [NSLocationAlwaysAndWhenInUseUsageDescription](https://developer.apple.com/documentation/bundleresources/information_property_list/nslocationalwaysandwheninuseusagedescription)

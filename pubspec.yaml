@@ -1,7 +1,6 @@
 name: modular_location_permission
 description: Location permission plugin to be used with Modular Permissions.
 version: 0.1.0
-author: UpTech
 homepage: https://upte.ch
 
 environment:

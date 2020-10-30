@@ -49,14 +49,6 @@ class ModularLocationPermissionPlugin : FlutterPlugin, MethodCallHandler, Activi
           result.error("No-Activity", "Not attached to an activity", null)
         }
       }
-      "openAppSettings" -> {
-        activity?.let { validActivity ->
-          validActivity.startActivity(android.content.Intent().apply {
-            action = android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS
-            data = android.net.Uri.fromParts("package", validActivity.packageName, null)
-          })
-        }
-      }
     }
   }
   override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {

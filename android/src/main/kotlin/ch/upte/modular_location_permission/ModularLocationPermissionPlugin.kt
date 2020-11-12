@@ -64,6 +64,7 @@ class ModularLocationPermissionPlugin : FlutterPlugin, MethodCallHandler, Activi
   override fun onAttachedToActivity(binding: ActivityPluginBinding) {
     activity = binding.activity
     binding.addRequestPermissionsResultListener(this)
+    binding.addOnNewIntentListener()
   }
   override fun onDetachedFromActivityForConfigChanges() {
     activity = null
